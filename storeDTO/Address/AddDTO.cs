@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace storeDTO.Address
 {
-    public class AddressDTO
+    public class AddDTO
     {
-        public int AddressId { get; set; }
+        
         public int? AccountId { get; set; }
         public string? StreetName { get; set; }
         public string? StreetNumber { get; set; }
         public string? ZipCode { get; set; }
         public string? City { get; set; }
         public string? Country { get; set; }
-        
     }
 }

@@ -16,7 +16,7 @@ namespace store.Services
             _accountRepository = accountRepository;
             _mapper = mapper;
         }
-        public async Task<AccountDTO> CreateAccountAsync(AccountDTO request)
+        public async Task<AccDTO> CreateAccountAsync(AccDTO request)
         {
             if (request != null)
             {

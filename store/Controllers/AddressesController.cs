@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using store.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using store.Services.Interfaces;
-using storeDTO.Account;
 using storeDTO.Address;
 
 namespace store.Controllers
@@ -28,7 +19,10 @@ namespace store.Controllers
         [HttpGet]
         public async Task<ActionResult<List<AddressDTO>>> GetAddresses()
         {
-            return await _addressService.GetAllAsync();
+            var list = await _addressService.GetAllAsync();
+            if (list.Count == 0)
+                return BadRequest("List is emty");
+            else return Ok(list);
         }
 
         // GET: api/Addresses/5
@@ -42,13 +36,13 @@ namespace store.Controllers
                 return NotFound();
             }
 
-            return address;
+            return Ok(address);
         }
 
         // PUT: api/Addresses/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddress([FromRoute] int id, [FromBody] UpdateAddressDTO address)
+        public async Task<IActionResult> PutAddress( int id, [FromBody] UpdateAddressDTO address)
         {
             address.AddressId = id;
             await _addressService.UpdateAddressAsync(address);
@@ -58,8 +52,9 @@ namespace store.Controllers
         // POST: api/Addresses
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult> PostAddress(AddressDTO address)
+        public async Task<ActionResult> PostAddress(AddDTO address)
         {
+
             await _addressService.CreateAddressAsync(address);
             return Ok();
         }

@@ -17,7 +17,7 @@ namespace store.Services
             _mapper = mapper;
         }
 
-        public async Task<AddressDTO> CreateAddressAsync(AddressDTO address)
+        public async Task<AddDTO> CreateAddressAsync(AddDTO address)
         {
             if (address != null)
             {

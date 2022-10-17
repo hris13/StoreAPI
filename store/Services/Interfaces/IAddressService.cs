@@ -5,7 +5,7 @@ namespace store.Services.Interfaces
 {
     public interface IAddressService
     {
-        public Task<AddressDTO> CreateAddressAsync(AddressDTO address);
+        public Task<AddDTO> CreateAddressAsync(AddDTO address);
         public Task UpdateAddressAsync(UpdateAddressDTO address);
         public Task DeleteAddressAsync(int id);
         public Task<List<AddressDTO>> GetAllAsync();

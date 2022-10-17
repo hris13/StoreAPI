@@ -9,7 +9,5 @@ namespace store.Models
         public string? OrderItemName { get; set; }
         public int? Quantity { get; set; }
         public int OrderItemsId { get; set; }
-
-        public virtual Order? Order { get; set; }
     }
 }

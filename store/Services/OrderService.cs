@@ -5,6 +5,9 @@ using store.Repo.Interfaces;
 using store.Services.Interfaces;
 using storeDTO.Account;
 using storeDTO.Address;
+using storeDTO.order;
+using System.Collections.Generic;
+using System.Net;
 
 namespace store.Services
 {
@@ -17,7 +20,7 @@ namespace store.Services
             _orderRepository = orderRepository;
             _mapper = mapper;
         }
-        public async Task<OrderDTO> CreateOrderAsync(OrderDTO order)
+        public async Task<OrdDTO> CreateOrderAsync(OrdDTO order)
         {
             if (order != null)
             {
@@ -30,9 +33,11 @@ namespace store.Services
 
         public async Task<List<OrderDTO>> GetAllAsync()
         {
-            List<Order> list = await _orderRepository.GetAllOrdersAsync();
-            List<OrderDTO> newlist = _mapper.Map<List<OrderDTO>>(list);
-            return newlist;
+            
+            List<Order> alist = await _orderRepository.GetAllOrdersAsync();
+            List<OrderDTO> list = _mapper.Map<List<OrderDTO>>(alist);
+
+            return list;
         }
     }
 }

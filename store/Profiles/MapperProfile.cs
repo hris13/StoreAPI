@@ -2,6 +2,7 @@
 using store.Models;
 using storeDTO.Account;
 using storeDTO.Address;
+using storeDTO.order;
 
 namespace store.Profiles
 {
@@ -14,6 +15,9 @@ namespace store.Profiles
             CreateMap<UpdateAddressDTO, Address>().ReverseMap();
             CreateMap<AddressDTO, Address>().ReverseMap();
             CreateMap<OrderDTO, Order>().ReverseMap();
+            CreateMap<AccDTO,Account>().ReverseMap();
+            CreateMap<AddDTO, Address>().ReverseMap();
+            CreateMap<OrdDTO, Order>().ReverseMap();
         }
         
     }

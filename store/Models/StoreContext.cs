@@ -20,7 +20,6 @@ namespace store.Models
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
-        public virtual DbSet<Temp> Temps { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -60,36 +59,29 @@ namespace store.Models
             {
                 entity.ToTable("Address");
 
-                entity.Property(e => e.AddressId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("AddressID");
+                entity.Property(e => e.AddressId).HasColumnName("AddressID");
 
                 entity.Property(e => e.AccountId).HasColumnName("AccountID");
 
                 entity.Property(e => e.City)
-                    .HasMaxLength(10)
-                    .HasColumnName("city")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("city");
 
                 entity.Property(e => e.Country)
-                    .HasMaxLength(10)
-                    .HasColumnName("country")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("country");
 
                 entity.Property(e => e.StreetName)
-                    .HasMaxLength(10)
-                    .HasColumnName("streetName")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("streetName");
 
                 entity.Property(e => e.StreetNumber)
-                    .HasMaxLength(10)
-                    .HasColumnName("streetNumber")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("streetNumber");
 
                 entity.Property(e => e.ZipCode)
-                    .HasMaxLength(10)
-                    .HasColumnName("zipCode")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("zipCode");
 
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Addresses)
@@ -101,84 +93,45 @@ namespace store.Models
             {
                 entity.ToTable("Order");
 
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("orderID");
+                entity.Property(e => e.OrderId).HasColumnName("orderID");
 
                 entity.Property(e => e.Buyer).HasColumnName("buyer");
 
                 entity.Property(e => e.DeliveryAddress)
-                    .HasMaxLength(10)
-                    .HasColumnName("deliveryAddress")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("deliveryAddress");
 
                 entity.Property(e => e.OrderDate)
-                    .HasMaxLength(10)
-                    .HasColumnName("orderDate")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("orderDate");
 
                 entity.Property(e => e.OrderPrice)
-                    .HasMaxLength(10)
-                    .HasColumnName("orderPrice")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("orderPrice");
 
                 entity.Property(e => e.OrderStatus)
-                    .HasMaxLength(10)
-                    .HasColumnName("orderStatus")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("orderStatus");
 
                 entity.HasOne(d => d.BuyerNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.Buyer)
-                    .HasConstraintName("FK_Order_Account");
+                    .HasConstraintName("FK_Order_Account1");
             });
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
                 entity.HasKey(e => e.OrderItemsId);
 
-                entity.Property(e => e.OrderItemsId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderItemsID");
+                entity.Property(e => e.OrderItemsId).HasColumnName("OrderItemsID");
 
                 entity.Property(e => e.OrderId).HasColumnName("orderID");
 
                 entity.Property(e => e.OrderItemName)
-                    .HasMaxLength(10)
-                    .HasColumnName("orderItemName")
-                    .IsFixedLength();
+                    .HasMaxLength(50)
+                    .HasColumnName("orderItemName");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK_OrderItems_Order");
-            });
-
-            modelBuilder.Entity<Temp>(entity =>
-            {
-                entity.ToTable("temp");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("email");
-
-                entity.Property(e => e.FirstName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("firstName");
-
-                entity.Property(e => e.LastName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("lastName");
-
-                entity.Property(e => e.UserName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("userName");
             });
 
             OnModelCreatingPartial(modelBuilder);

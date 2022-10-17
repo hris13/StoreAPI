@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using store.Models;
 using store.Services.Interfaces;
-using storeDTO.Address;
+using storeDTO.order;
 
 namespace store.Controllers
 {
@@ -31,7 +31,7 @@ namespace store.Controllers
 
         // GET: api/Orders/5
         [HttpPost]
-        public async Task<ActionResult<OrderDTO>> CreateOrder(OrderDTO order)
+        public async Task<ActionResult<OrdDTO>> CreateOrder(OrdDTO order)
         {
              await _orderService.CreateOrderAsync(order);
 
